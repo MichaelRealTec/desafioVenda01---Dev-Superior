@@ -7,48 +7,48 @@ public class Sale {
 	private String seller;
 	private Integer items;
 	private Double total;
-	
+
 	// Método Getter e Setter
 	public void setMonth(Integer month) {
 		this.month = month;
 	}
-	
+
 	public Integer getMonth() {
 		return month;
 	}
-	
+
 	public void setYear(Integer year) {
 		this.year = year;
 	}
-	
+
 	public Integer getYear() {
 		return year;
 	}
-	
-	public void setSeller(String seller){
+
+	public void setSeller(String seller) {
 		this.seller = seller;
 	}
-	
+
 	public String getSeller() {
 		return seller;
 	}
-	
+
 	public void setItems(Integer items) {
 		this.items = items;
 	}
-	
+
 	public Integer getItems() {
 		return items;
 	}
-	
+
 	public void setTotal(Double total) {
 		this.total = total;
 	}
-	
+
 	public Double getTotal() {
 		return total;
 	}
-	
+
 	// Método Construtor
 	public Sale(Integer month, Integer year, String seller, Integer items, Double total) {
 		this.month = month;
@@ -57,19 +57,20 @@ public class Sale {
 		this.items = items;
 		this.total = total;
 	}
-	
+
 	// Método
 	public Double averagePrice() {
 		return total / items;
 	}
-	
+
 	@Override
 	public String toString() {
-		return month +
-				"/" + year
-				+", " + seller
-				+", " + items
-				+", " + String.format("%.2f", total)
-				+", pm = " + String.format("%.2f", averagePrice());
+		return month + "/" + year + ", " + seller + ", " + items + ", " + String.format("%.2f", total) + ", pm = "
+				+ String.format("%.2f", averagePrice());
 	}
+	/*
+	public static int compareSale(Sale s1, Sale s2) {
+		return s1.averagePrice().compareTo(s2.averagePrice());
+	}
+	*/
 }

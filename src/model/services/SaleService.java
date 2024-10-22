@@ -7,7 +7,7 @@ public class SaleService {
 		double sum = 0.0;
 		for(Sale s : list) {
 			if(s.getSeller().charAt(0) == 'T') {
-				sum += s.getPrice();
+				sum += s.averagePrice();
 			}
 		}
 		return sum;
