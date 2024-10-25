@@ -81,7 +81,7 @@ public class Program {
 
 		return total;
 		// System.out.println(vendasLogan.toString()); // Opcional, exibir na tela as
-		// vendas feita por Logan no mês 1 e 7 de todos os meses
+		// vendas feitas pelo vendedor Logan no mês 1 e 7 de todos os anos
 	}
 
 }
