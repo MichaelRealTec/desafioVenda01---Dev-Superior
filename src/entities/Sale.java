@@ -66,12 +66,6 @@ public class Sale {
 	@Override
 	public String toString() {
 		return month + "/" + year + ", " + seller + ", " + items + ", " + String.format("%.2f", total) + ", pm = "
-				+ String.format("%.2f", averagePrice())
-				+"\n";
+				+ String.format("%.2f", averagePrice());
 	}
-	/*
-	public static int compareSale(Sale s1, Sale s2) {
-		return s1.averagePrice().compareTo(s2.averagePrice());
-	}
-	*/
 }
