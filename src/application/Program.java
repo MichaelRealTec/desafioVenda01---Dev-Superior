@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import entities.Sale;
 
@@ -21,6 +23,7 @@ public class Program {
 
 		System.out.print("Entre o caminho do arquivo: ");
 		path = sc.nextLine();
+		System.out.println();
 		// String path = "c:\\temp\\in.csv"; // O '\' chama comandos especiais
 		// Stream<String> st1 = sale.stream().map(x -> x < limit(5));
 		// int sum = sale.stream().reduce(0, (x, y) -> x + y);
@@ -46,31 +49,71 @@ public class Program {
 				line = br.readLine(); // Pula para a leitura da próxima linha
 				// System.out.println(line);
 			}
+			
+			//sale.forEach(System.out::println);
+			//Comparator<String> comp = (s1, s2) -> s1.toUpperCase().compareTo(s2.toUpperCase());
+			
+			System.out.println("Cinco primeiras vendas de 2016 de maior preço médio");
+			
+			
+			//Integer pro = (Integer)(sale.stream().reduce(1, Integer::max));
+			
+			List<Sale> vendas2016  = sale.stream()
+				//.filter(p -> p.averagePrice() > avg)  // filtra os preços abaixo do avg
+				//.map(p -> p.toString())     // Pega os nomes que estão no filtro    
+				//.sorted(Comparator.comparing(;)
+				//.sorted((p1, p2) -> (p1.averagePrice().compareTo(p2.averagePrice())
+				//.reduce(1, Integer::max)
+				.filter(p -> p.getYear() == 2016 && p.averagePrice() > 0)
+				//.map(p -> p.getYear())
+				//.sorted(Comparator.comparing(Sale::averagePrice()))
+				//.sorted(Comparator.comparing(Sale::averagePrice)).reversed())
+				.sorted(Comparator.comparing(Sale::averagePrice).reversed())
+				.limit(5)  
+                 // compara na ordem decrescente
+				.collect(Collectors.toList());
 
-			double order;
+			vendas2016.forEach(System.out::println); // Mostrar na tela
+			
+			System.out.println(); // Saltar uma linha
+			System.out.println("Valor total vendido pelo vendedor Logan nos meses 1 e 7 = " );
+			/*
+			List<Sale> vendas = sale.stream()
+					.filter(x -> x.getSeller().equals("Logan")
+					.sorted(Comparator.comparing(Sale::getSeller).reversed())
+					.collect(Collectors.toList());
+			*/
+			//vendas.forEach(System.out::println);
+			//System.out.println(vendas.toString());
+			
+			testOne(sale);
+	       
+			//sale.forEach(sale.getSeller());
+			
+			//double order;
 			// sale.stream().map()
-			double sum = sale.stream()
+			//double sum = sale.stream()
 					// .comparator<Sale> sale (s1, s2) ->
 					// s1.averagePrice().toUpperCase().compareTo(s2.averageCase().toUpperCase())
 					// .max(Comparator.reverseOrder())
 					// .sale.sort((s1, s2) ->
 					// s1.averagePrice().toUpperCase().compareTo(s2.averageCase().toUpperCase()))
 					// .sale(order);
-					.limit(5).map(s -> s.averagePrice()).reduce(0.0, (x, y) -> x + y);
+				//	.limit(5).map(s -> s.averagePrice()).reduce(0.0, (x, y) -> x + y);
 			// .collect(Collectors.toList());
 
 			// .reduce(0.0, (x,y) -> x + y) / sale.size(); // Achando a média da soma de
 			// todos elementos
 			// .colect(Collector sale)
 
-			System.out.println("Cinco primeiras vendas de 2016 de maior preço médio");
+		
 
 			// sale.sort(Sale::compareSale);
-			sale.sort((s1, s2) -> s1.averagePrice().compareTo(s2.averagePrice()));
-			sale.forEach(System.out::println);
+			//sale.sort((s1, s2) -> s1.averagePrice().compareTo(s2.averagePrice()));
+			//sale.forEach(System.out::println);
 
-			System.out.printf("Média da soma de todos os elementos = %.2f\n", sum);
-			System.out.println("Valor total vendido pelo vendedor Logan nos meses 1 e 7 = ");
+			//System.out.printf("Média da soma de todos os elementos = %.2f\n", sum);
+			
 			/*
 			 * for(Sale x : sale) { System.out.println(x); }
 			 */
@@ -82,5 +125,22 @@ public class Program {
 		sc.close();
 
 	}
+	private static void testOne(List<Sale> sale) {
+
+        Double total = 0.0;
+        
+    	
+		List<Sale> vendasLogan = sale.stream()
+				.filter(x -> x.getSeller().equals("Logan") && (x.getMonth().equals(1) || x.getMonth().equals(7)))
+				.sorted(Comparator.comparing(Sale::getMonth))
+				.collect(Collectors.toList());
+		
+		for(Sale sx : vendasLogan) {
+			
+			total += sx.getTotal();
+		}
+		System.out.println(vendasLogan.toString());        
+        System.out.printf("Sum of Salaries is %.2f", total);
+    }
 
 }
